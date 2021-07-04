@@ -16,4 +16,10 @@ APIs needed: Google Maps
 Version 1.0.0 Branch lab06 Created server Added Constructor functions for location and Added get functions for retrieving JSON data.
 
 ## Credit and Collaborations
-Our lovely instructor Razan Al-Quran And Our heros TA
+Our lovely instructor Razan Al-Quran And Our heros 
+
+Name of feature: Complete User form
+Estimate of time needed to complete: 4hrs
+Start time: 2:05pm
+Finish time: 4:15pm
+Actual time needed to complete: 2hrs 10min
