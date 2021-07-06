@@ -71,6 +71,10 @@ class App extends React.Component {
         {this.state.showMap &&
           <img alt='' src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.LocationObject.lat},${this.state.LocationObject.lon}&zoom=15`} />
         }
+        {this.state.showError &&
+          <p style={{ fontSize: '50px', textAlign: 'center', marginTop: '30px' }}>Server Error</p>
+        }
+
 
       </div>
     )
