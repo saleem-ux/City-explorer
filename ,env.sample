@@ -1,5 +1,6 @@
 REACT_APP_LOCATIONIQ_KEY=<add your Location IQ key>
 
+
 WEATHER_KEY=<weather-key>
 
 MOVIES_KEY=<movie-key>
