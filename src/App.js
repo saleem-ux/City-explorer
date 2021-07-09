@@ -83,53 +83,64 @@
 
 // export default App;
 
-
-// --------------------------------------------------------------- ------------------------------------------lab07--------------------------------------------
-
+// ============================================================================================================
+// =============================================================lab08==========================================
+// ============================================================================================================
 
 import React from 'react'
-import { Form, Button, Tabs, Tab, Table } from 'react-bootstrap'
+import { Form, Button, Tabs, Tab,} from 'react-bootstrap'
 import axios from 'axios';
 import Weather from './components/Weather';
+import Movie from './components/Movie';
+import Map from './components/Map';
+import City from './components/City';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import './components/City.css';
+import './components/Weather.css';
+import './components/Map.css';
+import './components/Movie.css';
+
 
 class App extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      locationObject: {},
-      userCityInput: '',
+      locationData: {},
+      targetData: '',
       showTab: false,
       showError: false,
-      weatherData: {}
+      weatherData: {},
+      movieData: {}
     }
   }
 
-  submitLocation = async (event) => {
-    event.preventDefault();
-    await this.setState({
-      userCityInput: event.target.city.value
-    })
-
-    let url = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.userCityInput}&format=json`
-
+  submitLocation = async (e) => {
+    e.preventDefault();
     try {
+      await this.setState({
+        targetData: e.target.cityName.value
+      })
+
+      let url = `https://eu1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.targetData}&format=json`
+
       let resData = await axios.get(url);
       // console.log(resData.data);
-      let weatherData = await axios.get(`${process.env.REACT_APP_API}weather?city=${this.state.userCityInput.toLocaleLowerCase()}`)
+      let weatherData = await axios.get(`https://explorer-city-city.herokuapp.com/getWeather?cityName=${this.state.targetData.toLocaleLowerCase()}`)
+      let movieData = await axios.get(`https://explorer-city-city.herokuapp.com/getMovies?movieName=${this.state.targetData.toLocaleLowerCase()}`)
 
       this.setState({
-        locationObject: resData.data[0],
+        locationData: resData.data[0],
         weatherData: weatherData.data,
+        movieData: movieData.data,
         showTab: true,
         showError: false
       })
     } catch (err) {
       this.setState({
         showError: true,
-        showTab: false,
+        showTab: false
       })
     }
   }
@@ -138,13 +149,12 @@ class App extends React.Component {
 
     return (
 
-      <div>
+      <>
 
         <h1> City Explorer </h1>
-
         <Form onSubmit={this.submitLocation} value='get data'>
           <Form.Group className="mb-3" >
-            <Form.Control type="text" placeholder="Explore Your City" name='city' style={{ textAlign: 'center' }} />
+            <Form.Control type="text" placeholder="Explore Your City" name='cityName' style={{ textAlign: 'center' }} />
           </Form.Group>
           <Button variant="primary" type="submit" >
             Explore
@@ -152,45 +162,33 @@ class App extends React.Component {
         </Form>
 
         {this.state.showTab &&
-          <Tabs defaultActiveKey="home" id="uncontrolled-tab-example" className="mb-4">
+          <Tabs defaultActiveKey="home" id="uncontrolled-tab-example" className="mb-3">
+
             <Tab eventKey="home" title="Location">
-              <Table striped bordered hover classNme="mb-5" style={{ textAlign: 'center' , width:'50%', margin:'auto'}}>
-                <thead>
-                  <tr>
-                    <th>City</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{this.state.locationObject.display_name}</td>
-                    <td>{this.state.locationObject.lat}</td>
-                    <td>{this.state.locationObject.lon}</td>
-                  </tr>
-                </tbody>
-              </Table>
+              <City cityName={this.state.locationData.display_name} locationDatalat= {this.state.locationData.lat} locationDatalon={this.state.locationData.lon}/>
             </Tab>
+
             <Tab eventKey="Weather" title="Weather">
               <Weather weatherData={this.state.weatherData} />
             </Tab>
+
             <Tab eventKey="profile" title="Map">
-              <img
-                alt='' src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationObject.lat},${this.state.locationObject.lon}&zoom=10`}
-              />
+              <Map locationDatalat= {this.state.locationData.lat} locationDatalon={this.state.locationData.lon}/>
             </Tab>
-          </Tabs>
-        }
+
+            <Tab eventKey="Movie" title="Movie">
+              <Movie movieData={this.state.movieData} />
+            </Tab>
+            
+          </Tabs>}
 
         {this.state.showError &&
-          <p style={{ fontSize: '50px', textAlign: 'center', marginTop: '30px' }}>Server Error 500</p>
+          <p style={{ fontSize: '50px', textAlign: 'center', marginTop: '30px' }}>Internal Server Error 500 <br /> Enter a Valid City Name</p>
         }
 
-      </div>
+      </>
     )
   }
 }
-
-
 
 export default App

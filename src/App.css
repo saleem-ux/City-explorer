@@ -1,54 +1,22 @@
-h1{
+
+body{
   text-align: center;
-  color: rgb(255, 255, 255);
-  padding: 30px;
-}
-
-.mb-3 {
-  margin-top: 80px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.mb-4 {
-  width: 19%;
-  margin: auto;
-  margin-top: 30px;
-  justify-content: center;
-}
-
-.mb-5{
-  justify-content: center;
-
-}
-.mb-6{
-  margin-left: 30%;
-}
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
-form {
-  margin-top: 150px;
-  width: 20%;
-  text-align: center;
-  font-size: 25px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-
-* {
   background-image: url('https://img.digitaltrends.com/image/google-earth-7-1200x630-c.jpg');
-  color: white;
-}
-button{
-  width: 50%;
-  margin-bottom: 15px;
+  background-repeat: no-repeat;
+  background-size:100% ;
+  height: 100%;
 }
 
+h1{
+  height: 100px;
+  justify-content: center;
+  padding-top: 30px;
+  color: rgba(240, 248, 255, 0.801);
+  letter-spacing: 5px;
+}
+
+Form .mb-3{
+  margin-top: 30px;
+  width: 25%;
+  margin-left: 510px;
+}

@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Table } from 'react-bootstrap'
 
 
-class Weather extends React.Component {
+export class Weather extends Component {
 
     render() {
         return (
 
-                <Table striped bordered hover className='mb-6' style={{ textAlign: 'center' , width:'50%', margin:'auto'}}>
+            
+                <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -17,7 +18,7 @@ class Weather extends React.Component {
                     {this.props.weatherData.map(data => {
                         return <tbody>
                             <tr>
-                                <td>{data.date}</td>
+                                <td>{data.valid_date}</td>
                                 <td>{data.description}</td>
                             </tr>
                         </tbody>
