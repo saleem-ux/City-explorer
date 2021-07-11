@@ -241,7 +241,7 @@ class App extends React.Component {
       let resData = await axios.get(url);
       // console.log(resData.data);
       let weatherData = await axios.get(`https://explorer-city-city.herokuapp.com/getWeather?cityName=${this.state.targetData.toLocaleLowerCase()}`)
-      let movieData = await axios.get(`https://explorer-city-city.herokuapp.com/getMovies?movieName=${this.state.targetData.toLocaleLowerCase()}`)
+      let movieData = await axios.get(`https://explorer-city-city.herokuapp.com/movie?movieName=${this.state.targetData.toLocaleLowerCase()}`)
       let restaurantsData = await axios.get(`https://explorer-city-city.herokuapp.com/restaurants?restaurantsName=${this.state.targetData.toLocaleLowerCase()}`)
       this.setState({
         restaurantsData:restaurantsData.data,
